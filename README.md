@@ -1,10 +1,5 @@
-# shopping-list-manager-js-demo
+# shopping-list-manager-v2
 
-This app can be tested here
-https://meelishynninen.com/shopping/
+Early developement: JS Front-end, PHP or NODE API backend (not decided)
 
-I cloned PHP version and did it all with 'Vanilla' JavaScript ES6
-https://github.com/MeelisH/shopping-list-manager
-
-It's not connected to real DataBase like PHP version is. Items are stored in Browsers LocalStorage.
-It was ment to be DEMO for PHP vesion but i will use it as main version if there are going to be any future development for this shopping app :D
+deprecated version 1 can be found here (full php) https://github.com/MeelisH/shopping-list-manager demo v1 https://www.meelishynninen.com/shopping/
