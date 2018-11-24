@@ -1,0 +1,20 @@
+{
+  "name": "shopping-list-manager-v2",
+  "version": "1.0.0",
+  "description": "Early developement of version 2",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "json:server": "json-server --watch api/db.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MeelisH/shopping-list-manager-v2.git"
+  },
+  "author": "Meelis Hynninen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MeelisH/shopping-list-manager-v2/issues"
+  },
+  "homepage": "https://github.com/MeelisH/shopping-list-manager-v2#readme"
+}
