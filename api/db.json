@@ -1,18 +1,18 @@
 {
-  "item": [
+  "items": [
     {
-      "id": 1,
       "name": "Tomato",
-      "amount": 5,
-      "owner": "Meelis",
-      "inCart": false
-    },
-    {
-      "id": 2,
-      "name": "Bread",
       "amount": 1,
       "owner": "Meelis",
-      "inCart": false
+      "inCart": false,
+      "id": 1
+    },
+    {
+      "name": "Perkkuna",
+      "amount": 1,
+      "owner": "Meelis",
+      "inCart": true,
+      "id": 2
     }
   ]
 }
