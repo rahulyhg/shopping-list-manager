@@ -2,35 +2,28 @@ import { api } from './api';
 import { ui } from './ui';
 
 /*
-    DOM EVENTS
+    Event listeners
 */
+loadeventListeners();
+function loadeventListeners() {
+  // DOM Load, get all items
+  document.addEventListener('DOMContentLoaded', getItems);
+  // Click event on actions on Checkbox and Delete (shopping-items ul)
+  document.querySelector('#shopping-items').addEventListener('click', handleItemsClickEvent);
+  // Submit new item event (enter key)
+  document.getElementById('add-form').addEventListener('keyup', submitNewItemEvent);
+  // Init side nav (materializeCss)
+  document.addEventListener('DOMContentLoaded', initSidenav);
+}
 
-/**
- * MaterializeCSS Side Nav
- */
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.sidenav');
-  var instances = M.Sidenav.init(elems, {});
-});
-
-/**
- * Get shopping items from API on DOM load
- */
-document.addEventListener('DOMContentLoaded', function () {
+function getItems() {
   api.get('http://localhost:3000/items')
   .then(items => ui.showItems(items))
   .catch(error => console.log(error));
-});
+}
 
-/**
- * Listen Click event on Shopping Items (ul)
- * Handles Checkbox and Delete
- * Updates API and UI
- */
-document.querySelector('#shopping-items').addEventListener('click', function(e) {
-  /**
-   * Checkbox status (API)
-   */
+// TODO REFACTOR
+function handleItemsClickEvent(e) {
   if(e.target.classList.contains('checkbox')) {
     // Set setpoint status we want
     let checked = false;
@@ -68,8 +61,33 @@ document.querySelector('#shopping-items').addEventListener('click', function(e) 
     // Delete from UI
     item.remove();
   }
+}
 
-});
+function submitNewItemEvent(e) {
+  if (e.key === 'Enter') {
+    const itemInput = ui.UISelectors.itemInput;
+
+    if (itemInput.value === '') {
+      alert("Item input cannot be empty");
+    } else {
+      // Post new item to Api
+      let item = new ItemModel(itemInput.value, 1, "Meelis", false);
+      api.post('http://localhost:3000/items', item);
+
+      // Add new item to Ui
+      ui.addItem(item);
+      ui.UISelectors.itemInput.value = '';
+    }
+
+    e.preventDefault();
+  }
+}
+
+function initSidenav() {
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems, {});
+}
+
 
 // TODO Move to somewhere else
 class ItemModel {
@@ -81,29 +99,6 @@ class ItemModel {
   }
 }
 
-/**
- *  Listen for Add New Item event (ENTER Key)
- * 
- */
-document.getElementById('add-form').addEventListener('keyup', function(e) {
-    if (e.key === 'Enter') {
-      const itemInput = ui.UISelectors.itemInput;
-
-      if (itemInput.value === '') {
-        alert("Item input cannot be empty");
-      } else {
-        // Post new item to Api
-        let item = new ItemModel(itemInput.value, 1, "Meelis", false);
-        api.post('http://localhost:3000/items', item);
-
-        // Add new item to Ui
-        ui.addItem(item);
-        ui.UISelectors.itemInput.value = '';
-      }
-
-      e.preventDefault();
-    }
-});
 
 // Api Test
 // function getFoodNames(toSearch) {

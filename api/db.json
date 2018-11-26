@@ -4,7 +4,7 @@
       "name": "Tomaatti",
       "amount": 1,
       "owner": "Meelis",
-      "inCart": true,
+      "inCart": false,
       "id": 1
     },
     {
@@ -13,13 +13,6 @@
       "owner": "Meelis",
       "inCart": false,
       "id": 2
-    },
-    {
-      "name": "Peruna",
-      "amount": 1,
-      "owner": "Meelis",
-      "inCart": false,
-      "id": 3
     }
   ]
 }
