@@ -1,18 +1,25 @@
 {
   "items": [
     {
-      "name": "Tomato",
-      "amount": 1,
-      "owner": "Meelis",
-      "inCart": false,
-      "id": 1
-    },
-    {
-      "name": "Perkkuna",
+      "name": "Tomaatti",
       "amount": 1,
       "owner": "Meelis",
       "inCart": true,
+      "id": 1
+    },
+    {
+      "name": "Porkkana",
+      "amount": 1,
+      "owner": "Meelis",
+      "inCart": false,
       "id": 2
+    },
+    {
+      "name": "Peruna",
+      "amount": 1,
+      "owner": "Meelis",
+      "inCart": false,
+      "id": 3
     }
   ]
 }

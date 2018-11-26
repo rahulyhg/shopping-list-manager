@@ -56,10 +56,6 @@ class Ui {
 
       shoppingItems.innerHTML += newItem;
   }
-
-  clearItemInput() {
-    this.UISelectors.itemInput.value = '';
-  }
 }
 
 export const ui = new Ui(); 

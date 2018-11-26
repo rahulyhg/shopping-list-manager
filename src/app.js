@@ -23,13 +23,16 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 /**
- * Listen Click event on Shopping Items
+ * Listen Click event on Shopping Items (ul)
  * Handles Checkbox and Delete
  * Updates API and UI
  */
 document.querySelector('#shopping-items').addEventListener('click', function(e) {
-  // Handle Checkbox (note UI updates with Materialize CSS)
+  /**
+   * Checkbox status (API)
+   */
   if(e.target.classList.contains('checkbox')) {
+    // Set setpoint status we want
     let checked = false;
     // We want to invert checked status, click means we want to invert it
     if (e.target.hasAttribute('checked')) {
@@ -38,22 +41,33 @@ document.querySelector('#shopping-items').addEventListener('click', function(e) 
       checked = true;
     }
 
-    // Update API, new item with new Checkbox status
-    const listId = e.target.parentElement.parentElement.parentElement.id;
-    const listIdArr = listId.split('-');
+    // Get ID
+    const listIdArr = e.target.parentElement.parentElement.parentElement.id.split('-');
     const id = listIdArr[1];
 
+    // GET from API and UPDATE checkbox
     api.get('http://localhost:3000/items/' + id)
     .then(item => {
       item.inCart = checked;
       api.put('http://localhost:3000/items/' + id, item);
     })
     .catch(error => console.log(error));
+    // Checkbox UI is already done by materialize
   }
 
-
-  // Handle Delete
-
+  /**
+   * Delete item from API and UI
+   */
+  if (e.target.classList.contains('material-icons')) {
+    // Get ID
+    const item = e.target.parentElement.parentElement.parentElement.parentElement;
+    const itemIdArr = item.id.split('-');
+    const id = itemIdArr[1];
+    // Delete from API
+    api.delete('http://localhost:3000/items/' + id);
+    // Delete from UI
+    item.remove();
+  }
 
 });
 
@@ -84,7 +98,7 @@ document.getElementById('add-form').addEventListener('keyup', function(e) {
 
         // Add new item to Ui
         ui.addItem(item);
-        ui.clearItemInput();
+        ui.UISelectors.itemInput.value = '';
       }
 
       e.preventDefault();
