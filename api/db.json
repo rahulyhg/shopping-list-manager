@@ -1,18 +1,11 @@
 {
   "items": [
     {
-      "name": "Tomaatti",
+      "name": "Testi",
       "amount": 1,
       "owner": "Meelis",
-      "inCart": false,
+      "inCart": true,
       "id": 1
-    },
-    {
-      "name": "Porkkana",
-      "amount": 1,
-      "owner": "Meelis",
-      "inCart": false,
-      "id": 2
     }
   ]
 }
