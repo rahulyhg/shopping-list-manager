@@ -14,7 +14,7 @@ class Api  {
 	}
 
 	/**
-	 * GET Request
+	 * GET All items Request
 	 * @param int $userId for the user we want to fetch
 	 * #returns JSON
 	 */
@@ -23,12 +23,36 @@ class Api  {
 		$query = $this->connection->query($sql);
 
 		if ($query) {
-			$this->response =$query->fetchAll();		
+			$this->response = $query->fetchAll();		
 			$query->closeConnection();
+			$this->ifEmptySetResponseMsg();
 		} else {
 			$this->response = Array(
 				'status' => 'error',
-				'message' =>'Get Items failed or no items to show?'
+				'message' => 'Get Items failed.'
+			);
+		}
+
+		$this->returnResponse();
+	}
+
+	/**
+	 * GET Single item Request
+	 */
+	public function getItem(int $id ,int $userid) {
+		$sql = "SELECT * FROM items WHERE id=? AND userId=? LIMIT 1";
+		$types = "ii";
+		$vars = [$id ,$userid];
+		$query = $this->connection->query($sql, $types, $vars);
+
+		if ($query) {
+			$this->response = $query->fetchAll()[0]; // Only one will be returned, and we select that		
+			$query->closeConnection();			
+			$this->ifEmptySetResponseMsg();
+		} else {
+			$this->response = Array(
+				'status' => 'error',
+				'message' => 'Get Items failed.'
 			);
 		}
 
@@ -71,8 +95,7 @@ class Api  {
 	 * PUT Request
 	 * #returns JSON
 	 */
-	public function updateItem()
-	{
+	public function updateItem() {
 		$put_vars = json_decode(file_get_contents("php://input"), true);
 		$id = $put_vars["id"];
 		$name = $put_vars["name"];
@@ -93,7 +116,7 @@ class Api  {
 		} else {
 			$this->response = Array(
 				'status' => 'error',
-				'message' =>'Item Update Failed.'
+				'message' => 'Item Update Failed.'
 			);
 		}
 
@@ -104,8 +127,7 @@ class Api  {
 	 * DELETE Request
 	 * #returns JSON
 	 */
-	public function deleteItem()
-	{
+	public function deleteItem() {
 		$del_vars = json_decode(file_get_contents("php://input"), true);
 		$id = $del_vars["id"];
 
@@ -130,9 +152,18 @@ class Api  {
 		$this->returnResponse();
 	}
 	
-	// Helper
+	// Common helpers
 	private function returnResponse() {
 		header('Content-Type: application/json');
 		echo json_encode($this->response);
+	}
+
+	private function ifEmptySetResponseMsg() {
+		if (!$this->response) {
+			$this->response = Array(
+				'status' => 'Success',
+				'message' => 'No items to show!'
+			);
+		}
 	}
 }

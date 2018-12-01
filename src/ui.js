@@ -12,7 +12,7 @@ class Ui {
     items.forEach(item => {
       let checkbox = '';
 
-      if (item.inCart) {
+      if (item.inCart === 'true') {
         checkbox = 'checked="checked"';
       }
 
@@ -34,10 +34,8 @@ class Ui {
   }
 
   addItem(item) {
-    // Figure out new ID for new UI item, so we dont have to fetch newly added item from API.
-    // When page is refreshed, then ID is from API, but when adding then new UI element
-    // gets id from here, but again when refresh then from API :)
-    // Maybe better solution, in some other time :)
+    // TODO: THIS DO NOT WORK. It created ID in UI, that is not correct, but in the API correct ID is still created
+    // It dosent really matter, on refresh its all ok, but still its wrong
     const shoppingItems = this.UISelectors.shoppingItems;
     const id = shoppingItems.childElementCount + 1;
 

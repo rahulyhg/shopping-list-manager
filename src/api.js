@@ -1,5 +1,13 @@
+/**
+ * Handles HTTP Requests
+ */
 class Api {
-  // HTTP GET
+
+  /**
+   * Fetch/Get data
+   * 
+   * @param {string} url endpoint url
+   */
   async get(url) {
     const rawResponse = await fetch(url);
     const content = await rawResponse.json();
@@ -26,6 +34,7 @@ class Api {
     const rawResponse = await fetch(url, {
       method: 'PUT',
       headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
@@ -36,15 +45,17 @@ class Api {
   }
 
   // HTTP DELETE
-  async delete(url) {
+  async delete(url, data) {
     const rawResponse = await fetch(url, {
       method: 'DELETE',
       headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
-      }
+      },
+      body: JSON.stringify(data)
     });
 
-    const content = await 'Delete successful!';
+    const content = await rawResponse.json();
     return content;
   }
  }

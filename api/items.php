@@ -27,26 +27,28 @@ include('app/connection.php');
 $Connection = new Connection($Database);
 $Api = new Api($Connection); // TODO USERID HERE
 
-// Requests Controller
+/**
+ * Requests Controller
+ */
+
 $request_method=$_SERVER["REQUEST_METHOD"];
 
-if ($request_method === 'GET') 
-{
-	$Api->getAllItems($userID);
+if ($request_method === 'GET') {
+	if (isset($_GET['id'])) {
+		$Api->getItem( $_GET['id'], $userID);
+	} else {
+		$Api->getAllItems($userID);
+	}
 }
-elseif ($request_method === 'POST') 
-{
+elseif ($request_method === 'POST') {
 	$Api->insertItem($userID);
 }
-elseif ($request_method === 'PUT') 
-{
+elseif ($request_method === 'PUT') {
 	$Api->updateItem();
 }
-elseif ($request_method === 'DELETE') 
-{
+elseif ($request_method === 'DELETE') {
 	$Api->deleteItem();
 }
-else
-{
+else{
 	header("HTTP/1.0 405 Method Not Allowed");
 }
