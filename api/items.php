@@ -1,9 +1,10 @@
 <?php
- /**
-  * INIT
-  * Basic Configuration settings
-  */
+/**
+ * INIT
+ * Basic Configuration settings
+ */
 
+// Test
 $userID = 2;
 
 // database settings
@@ -19,29 +20,31 @@ ini_set('display_errors', 1);
 // error reporting *DEBUGGING ONLY*
 
 // include objects
-include ('api.php');
+include ('app/api.php');
+include('app/connection.php');
 
 // Init classes
-$Api = new Api($Database, $userID);
+$Connection = new Connection($Database);
+$Api = new Api($Connection); // TODO USERID HERE
 
 // Requests Controller
 $request_method=$_SERVER["REQUEST_METHOD"];
 
 if ($request_method === 'GET') 
 {
-	$Api->get_all_items($userID);
+	$Api->getAllItems($userID);
 }
 elseif ($request_method === 'POST') 
 {
-	$Api->insert_item($userID);
+	$Api->insertItem($userID);
 }
 elseif ($request_method === 'PUT') 
 {
-	$Api->update_item();
+	$Api->updateItem();
 }
 elseif ($request_method === 'DELETE') 
 {
-	$Api->delete_item();
+	$Api->deleteItem();
 }
 else
 {
