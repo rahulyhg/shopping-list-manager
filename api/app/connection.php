@@ -54,7 +54,22 @@ class Connection {
     }
 
     /**
-     * Close Prepare query and Mysqli Connection functions
+     * Fetch single result
+     * 
+     * @return string result
+     */
+    public function fetchSingle() {
+        $response = '';
+
+        while ($row = $this->stmt->fetch_assoc()) {
+            $response = $row;
+        }
+
+        return $response;
+    }
+
+    /**
+     * Helper methods
      */
     public function closePreparedStmt() {
         $this->stmt->close();
@@ -62,5 +77,9 @@ class Connection {
 
     public function closeConnection() {
         $this->mysqli->close();
+    }
+
+    public function getLastInsertedId() : string {
+        return $this->mysqli->insert_id;
     }
 }

@@ -5,7 +5,7 @@
  */
 class Api  {
 	private $connection;
-	private $userId;
+	// private $userId;
 	private $response;
 
 	public function __construct($connection) {
@@ -15,7 +15,7 @@ class Api  {
 
 	/**
 	 * GET All items Request
-	 * @param int $userId for the user we want to fetch
+	 * @param string $userId for the user we want to fetch
 	 * #returns JSON
 	 */
 	public function getAllItems(int $userid) {
@@ -28,6 +28,7 @@ class Api  {
 			$this->ifEmptySetResponseMsg();
 		} else {
 			$this->response = Array(
+				'id'	=> $this->mysqli->insert_id,
 				'status' => 'error',
 				'message' => 'Get Items failed.'
 			);
@@ -46,7 +47,7 @@ class Api  {
 		$query = $this->connection->query($sql, $types, $vars);
 
 		if ($query) {
-			$this->response = $query->fetchAll()[0]; // Only one will be returned, and we select that		
+			$this->response = $query->fetchSingle(); // Only one will be returned, and we select that	
 			$query->closeConnection();			
 			$this->ifEmptySetResponseMsg();
 		} else {
@@ -77,6 +78,7 @@ class Api  {
 
 		if ($query) {
 			$this->response = Array(
+				'id'	=> $this->connection->getLastInsertedId(),
 				'status' => 'success',
 				'message' => 'Item Added Successfully.'
 			);
@@ -154,6 +156,10 @@ class Api  {
 	
 	// Common helpers
 	private function returnResponse() {
+		// header("Access-Control-Allow-Origin: *"); // ***** DEV ONLY ****
+		// header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE'); // ***** DEV ONLY 
+		// header('Access-Control-Allow-Credentials: true');
+		header('Access-Control-Allow-Headers: Content-Type');
 		header('Content-Type: application/json');
 		echo json_encode($this->response);
 	}
