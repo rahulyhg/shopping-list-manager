@@ -1,3 +1,6 @@
+/**
+ * All changes to UI is coming trough this
+ */
 class Ui {
   constructor() {
     this.UISelectors = {
@@ -6,6 +9,11 @@ class Ui {
     };
   }
   
+  /**
+   * Draw all our items to UI
+   * 
+   * @param {Array} items containing results from API
+   */
   showItems(items) {
     let output = '';
 
@@ -33,6 +41,11 @@ class Ui {
     this.UISelectors.shoppingItems.innerHTML = output;
   }
 
+  /**
+   * Add newly entered single item to UI
+   * 
+   * @param {ItemModel} item model from controller
+   */
   addItem(item) {
     let newItem = `
       <li id="item-${item.id}">
