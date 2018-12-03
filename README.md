@@ -1,6 +1,12 @@
-# shopping-list-manager-v2
+# shopping-list-manager
 
-Early developement of version 2: JS Front-end, PHP API backend
+Shopping list web app designed for mobile view. Share link to family members, so both partys can modify them. Also possible to mark which items are already collected to shopping cart to keep track of them when shopping.
 
-Complete rewrite of<br>
-deprecated version 1 can be found here (full php) https://github.com/MeelisH/shopping-list-manager<br>
+## Todo
+
+- User registration
+- Many different lists, also shared lists. (you can still share your own list with someone, even if they don't have an account)
+
+## Future ideas
+
+Update items prices (it would be awesome if shops would have open API of items)
