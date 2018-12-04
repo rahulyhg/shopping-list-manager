@@ -28,10 +28,9 @@ class Controller {
 
     if (itemName === '') {
       alert("Item input cannot be empty");
-      location.reload();
+      return;
     }
 
-    const itemName = this._setItemName();
     let item = new ItemModel(itemName, 1, "false", 2);
 
     httplib.request('POST', this.apiUrl, item)
@@ -52,7 +51,7 @@ class Controller {
     const item = e.target.parentElement.parentElement.parentElement.parentElement;
     const itemIdArr = item.id.split('-');
     const id = itemIdArr[1];
-    httplib.request('DELETE', this.apiUrl, { id : id});
+    httplib.request('DELETE', this.apiUrl, { id : id });
     item.remove();
   }
 
@@ -68,6 +67,7 @@ class Controller {
     httplib.request('GET', this.apiUrl + '?id=' + id)
       .then(item => {
         // We want to reverse it after we have clicked
+        // TODO: We should Get Item from UI to avoin unnecessary 'GET' request to API.
         if (item.inCart === 'true') {
           item.inCart = 'false';
         } else if (item.inCart === 'false') {
@@ -81,7 +81,7 @@ class Controller {
 }
 
 /**
- * We are using this to pass our item to API
+ * We are using this model to pass our item around
  */
 class ItemModel {
   constructor(name, amount, inCart, userId) {

@@ -24,11 +24,11 @@ ini_set('display_errors', 1);  // ***** DEV ONLY ****
 
 // include objects
 include ('app/api.php');
-include('app/connection.php');
+include ('app/connection.php');
 
 // Init classes
 $Connection = new Connection($Database);
-$Api = new Api($Connection); // TODO USERID HERE
+$Api = new Api($Connection); // TODO: USERID HERE
 
 /**
  * Requests Controller
